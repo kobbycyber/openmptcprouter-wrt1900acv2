@@ -1,0 +1,10 @@
+CONFIG_TARGET_mvebu=y
+CONFIG_TARGET_mvebu_cortexa9=y
+CONFIG_TARGET_mvebu_cortexa9_DEVICE_linksys_wrt1900ac-v2=y
+CONFIG_PACKAGE_kmod-mwlwifi=y
+CONFIG_PACKAGE_mwlwifi-firmware-88w8864=y
+CONFIG_PACKAGE_luci-app-advanced-reboot=y
+# The Linksys kernel partition is 6 MB
+# CONFIG_KERNEL_CC_OPTIMIZE_FOR_PERFORMANCE is not set
+CONFIG_KERNEL_CC_OPTIMIZE_FOR_SIZE=y
+CONFIG_KERNEL_ARM_MODULE_PLTS=y

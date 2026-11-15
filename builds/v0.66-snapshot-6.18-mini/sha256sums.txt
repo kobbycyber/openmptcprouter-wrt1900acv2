@@ -1,0 +1,4 @@
+6daa8302399359cc0de79696f93f4efea965d71af5bd66b1ac03c5f5c0e8a8f0  openmptcprouter-v0.66-snapshot-6.18-r0+38202-dd72c4c198-mvebu-cortexa9-linksys_wrt1900ac-v2-squashfs-factory.img
+ab6ca0046996d26031e98e774be8e92dddf7db8038ce3836424f1e26831a304f  openmptcprouter-v0.66-snapshot-6.18-r0+38202-dd72c4c198-mvebu-cortexa9-linksys_wrt1900ac-v2-squashfs-sysupgrade.bin
+c0db0439206af0c360dbf0e1e1496e24262f243e5737a77d416c5f8f259bedd8  packages-arm_cortex-a9_vfpv3-d16.tar.gz
+610dd878e28be2c4557801175ec5a3920a4df166cf0504851c07b79db659954a  packages-mvebu-cortexa9.tar.gz
