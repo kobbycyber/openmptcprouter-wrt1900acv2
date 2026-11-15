@@ -27,8 +27,8 @@ Use the *Download raw file* button on a file's page, or clone the repository.
 |---|---|---|
 | `…linksys_wrt1900ac-v2-squashfs-factory.img` | 33,685,504 bytes | Flash from the stock Linksys firmware |
 | `…linksys_wrt1900ac-v2-squashfs-sysupgrade.bin` | 30,710,434 bytes | Flash from OpenWrt or OpenMPTCProuter |
-| `packages-mvebu-cortexa9.tar.gz` | | Kernel modules and target packages for this exact kernel |
-| `packages-arm_cortex-a9_vfpv3-d16.tar.gz` | | All other packages from the build, including the ones left out of the image |
+| `packages-mvebu-cortexa9.tar.gz` | 53,914,421 bytes | Kernel modules and target packages for this exact kernel |
+| `packages-arm_cortex-a9_vfpv3-d16.tar.gz` | 83,597,645 bytes | All other packages from the build, including the ones left out of the image |
 
 SHA-256:
 
