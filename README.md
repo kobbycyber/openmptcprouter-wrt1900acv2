@@ -93,11 +93,52 @@ scripts/verify-image.sh openmptcprouter-*-squashfs-factory.img
 *Connectivity → Basic → Router Firmware Update → Manual*, choose the `factory.img` and
 start. The router writes it to the slot that is not currently running and reboots into it.
 
-**From OpenWrt or an older OpenMPTCProuter:** copy the `sysupgrade.bin` to `/tmp` and run
+**From OpenWrt or an older OpenMPTCProuter** (written for a router on OpenWrt 25.12):
+use the `sysupgrade.bin`, not the `factory.img`, and do not keep the settings. Work over
+a wired LAN port.
 
-```sh
-sysupgrade -n -v /tmp/openmptcprouter-*-squashfs-sysupgrade.bin
-```
+1. Back up the current configuration and note the active slot. OMR is written to the
+   other slot, so the running OpenWrt stays in place as the fallback.
+
+   ```sh
+   sysupgrade -b /tmp/backup-owrt.tar.gz    # then copy it off the router
+   fw_printenv boot_part
+   ```
+
+2. Download the image onto the router and check it. The `+` in the file name is written
+   as `%2B` in the URL.
+
+   ```sh
+   cd /tmp
+   wget -O omr.bin 'https://github.com/kobbycyber/openmptcprouter-wrt1900acv2/raw/main/builds/v0.66-snapshot-6.18-mini/openmptcprouter-v0.66-snapshot-6.18-r0%2B38202-dd72c4c198-mvebu-cortexa9-linksys_wrt1900ac-v2-squashfs-sysupgrade.bin'
+   sha256sum omr.bin
+   ```
+
+   The result must be
+   `ab6ca0046996d26031e98e774be8e92dddf7db8038ce3836424f1e26831a304f`.
+   Without internet on the router, download on a PC and copy the file over with
+   `scp -O <file> root@<router-ip>:/tmp/omr.bin`.
+
+3. Let sysupgrade check the image without flashing it. No output means it is accepted
+   for this device. If it reports an unsupported device or a compat-version error, stop
+   there instead of forcing it.
+
+   ```sh
+   sysupgrade -T /tmp/omr.bin
+   ```
+
+4. Flash without keeping settings. The SSH session drops and the router reboots. Give
+   the first boot about five minutes and do not cut the power.
+
+   ```sh
+   sysupgrade -n -v /tmp/omr.bin
+   ```
+
+5. Reconnect on the new address: renew DHCP on the PC or replug the cable, then open
+   `http://192.168.100.1` or `ssh root@192.168.100.1`.
+
+If the router does not come up, use the power-switch method under [Recovery](#recovery)
+to return to the previous firmware.
 
 `-n` discards the old configuration, which OMR needs. Coming from a pre-DSA OpenWrt
 (19.07 or older) the image is refused with "Config cannot be migrated from swconfig to
