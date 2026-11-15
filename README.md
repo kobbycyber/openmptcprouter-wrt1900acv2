@@ -4,9 +4,9 @@
 Linksys WRT3200ACM and WRT32X but not for the WRT1900AC v2. This repository adds the
 missing target, documents how to build it, and publishes a prebuilt image.
 
-> **Status: flashed once on a real WRT1900AC v2 (2026-11-15). The router booted, but
-> connectivity is not confirmed yet:** the test PC was on a LAN port, and OpenMPTCProuter
-> serves its LAN on the port labelled *Internet* (see [Port layout](#port-layout)).
+> **Status: boots on a real WRT1900AC v2 (first flash 2026-11-15, from OpenWrt 25.12.5
+> with `sysupgrade`). The LAN on the *Internet* port works.** Wi-Fi, the WAN ports and
+> link aggregation have not been checked yet.
 > The checks that were run are listed under [Verification](#verification). Flash it
 > knowing that, and keep the [recovery](#recovery) steps at hand.
 
@@ -323,9 +323,17 @@ Done on the published image:
   configuration as the published image (apart from build logging).
 - `scripts/use-prebuilt-rust.sh` was run from a clean state in the finished buildroot.
 
+On hardware (one WRT1900AC v2, 2026-11-15):
+
+- `sysupgrade -n` from OpenWrt 25.12.5 wrote the image to the other slot and the router
+  booted it.
+- The LAN is reachable on the *Internet* port, as described under
+  [Port layout](#port-layout). Ports 1–4 give no DHCP, as expected.
+- Falling back to the OpenWrt slot with the power switch method works.
+
 Not done:
 
-- No boot on hardware. Wi-Fi, the switch, the LEDs and the dual-slot upgrade path are
+- Wi-Fi, the WAN ports (1–4), link aggregation against an OMR server and the LEDs are
   untested.
 - The published image came out of a staged build (full first, then mini in the same
   buildroot), not out of a single `./build.sh` run. The wrapper has not been run from
