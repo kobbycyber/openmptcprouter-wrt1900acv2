@@ -4,9 +4,9 @@
 Linksys WRT3200ACM and WRT32X but not for the WRT1900AC v2. This repository adds the
 missing target, documents how to build it, and publishes a prebuilt image.
 
-> **Status: the first flash on a real WRT1900AC v2 (2026-11-15) did not come up; cause
-> not yet known. Do not flash this image until this note is updated.**
-> Built and statically verified only.
+> **Status: flashed once on a real WRT1900AC v2 (2026-11-15). The router booted, but
+> connectivity is not confirmed yet:** the test PC was on a LAN port, and OpenMPTCProuter
+> serves its LAN on the port labelled *Internet* (see [Port layout](#port-layout)).
 > The checks that were run are listed under [Verification](#verification). Flash it
 > knowing that, and keep the [recovery](#recovery) steps at hand.
 
@@ -136,8 +136,8 @@ a wired LAN port.
    sysupgrade -n -v /tmp/omr.bin
    ```
 
-5. Reconnect on the new address: renew DHCP on the PC or replug the cable, then open
-   `http://192.168.100.1` or `ssh root@192.168.100.1`.
+5. Move the PC's cable to the port labelled **Internet** (see [Port layout](#port-layout)),
+   renew DHCP, then open `http://192.168.100.1` or `ssh root@192.168.100.1`.
 
 If the router does not come up, use the power-switch method under [Recovery](#recovery)
 to return to the previous firmware.
@@ -146,9 +146,22 @@ to return to the previous firmware.
 (19.07 or older) the image is refused with "Config cannot be migrated from swconfig to
 DSA"; add `-F` in that case.
 
-After the first boot OMR uses its own defaults (LAN address `192.168.100.1`, user
-`root`), not the Linksys or OpenWrt ones. The router also needs an OMR server (VPS) to
+After the first boot OMR uses its own defaults (LAN address `192.168.100.1` on the
+*Internet* port, user `root`), not the Linksys or OpenWrt ones. The router also needs an OMR server (VPS) to
 aggregate links; that side is covered by the upstream documentation.
+
+### Port layout
+
+OpenMPTCProuter does not use the ports the way the labels on the case say. On a router
+with a `wan` port and `lan1`–`lan4` its first-boot script (`1920-omr-network`) swaps the
+roles:
+
+| Port on the case | Role under OMR |
+|---|---|
+| **Internet** | LAN: `192.168.100.1`, DHCP server. Plug the PC or the downstream switch in here. |
+| **1 – 4** | `wan1` – `wan4`, DHCP clients. Plug the internet connections in here. |
+
+A PC on ports 1–4 gets no address and no reply to ping. That is expected.
 
 ### Recovery
 
