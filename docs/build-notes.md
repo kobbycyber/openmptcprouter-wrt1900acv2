@@ -106,7 +106,7 @@ kernel was not rebuilt. A clean `OMR_PACKAGES=mini` run gives the same configura
 
 `OMR_HOST=127.0.0.1` ends up in `CONFIG_VERSION_REPO`, so the image's feed for target
 packages and kernel modules points at `http://127.0.0.1/release/...`. Kernel modules
-for this build are only available from the release tarball. Set `OMR_HOST` (and
+for this build are only available from `packages-mvebu-cortexa9.tar.gz` in `builds/`. Set `OMR_HOST` (and
 `OMR_PORT`) to a server that hosts `bin/` if online installation matters.
 
 ### 5. Disk space during the build

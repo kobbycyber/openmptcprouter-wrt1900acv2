@@ -20,7 +20,8 @@ This is **not** for the WRT1900AC v1 (*mamba*) or the WRT1900ACS (*shelby*). The
 
 ## Downloads
 
-Images are attached to the [releases](../../releases) of this repository.
+Everything is in [`builds/v0.66-snapshot-6.18-mini/`](builds/v0.66-snapshot-6.18-mini).
+Use the *Download raw file* button on a file's page, or clone the repository.
 
 | File | Size | Use |
 |---|---|---|
@@ -36,8 +37,8 @@ SHA-256:
 ab6ca0046996d26031e98e774be8e92dddf7db8038ce3836424f1e26831a304f  …squashfs-sysupgrade.bin
 ```
 
-The package list, the full build configuration and the checksums are also kept in
-[`builds/v0.66-snapshot-6.18-mini/`](builds/v0.66-snapshot-6.18-mini).
+The same directory holds `sha256sums.txt`, the package list (`packages.manifest`) and the
+full build configuration (`config.buildinfo`).
 
 ## Why mini and not full
 
