@@ -4,7 +4,9 @@
 Linksys WRT3200ACM and WRT32X but not for the WRT1900AC v2. This repository adds the
 missing target, documents how to build it, and publishes a prebuilt image.
 
-> **Status: built and statically verified, not yet booted on a real router.**
+> **Status: the first flash on a real WRT1900AC v2 (2026-11-15) did not come up; cause
+> not yet known. Do not flash this image until this note is updated.**
+> Built and statically verified only.
 > The checks that were run are listed under [Verification](#verification). Flash it
 > knowing that, and keep the [recovery](#recovery) steps at hand.
 
@@ -152,9 +154,15 @@ aggregate links; that side is covered by the upstream documentation.
 
 The previous firmware stays in the other slot.
 
-- **Without access to the router:** switch it on, and switch it off again as soon as the
-  power LED lights up. Do this three times, then let it boot normally. The bootloader
-  falls back to the other slot.
+- **Without access to the router** (power switch method, timing matters):
+  1. Switch the router off.
+  2. Switch it on. The power LED lights; about two seconds later all LEDs go dark.
+     Switch it off at that moment.
+  3. Do step 2 two more times, three interrupted boots in total.
+  4. Switch it on and let it boot fully. It now starts the other slot.
+
+  Switching off too early or too late does not count as a failed boot, so repeat the
+  sequence if the same firmware comes back.
 - **With SSH access:** `fw_printenv boot_part` shows the active slot (1 or 2);
   `fw_setenv boot_part 1` or `2` selects the other one, then `reboot`.
 
